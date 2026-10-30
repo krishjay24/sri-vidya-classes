@@ -1,0 +1,8 @@
+﻿import { useState } from 'react'
+import { scienceElements } from '../../config/science'
+export default function ElementExplorer(){
+ const [symbol,setSymbol]=useState<string>('C')
+ const selected=scienceElements.find(element=>element.symbol===symbol)!
+ return <aside className="element-explorer" aria-labelledby="elements-title"><span className="science-kicker">A FEW BUILDING BLOCKS</span><h3 id="elements-title">Small symbols.<br /> Big connections.</h3><p>Hover, focus or tap an element.</p><div className="element-group-labels" aria-hidden="true"><span>1</span><span>14</span><span>15</span><span>16</span></div><div className="element-grid" role="group" aria-label="Selected periodic-table elements">{scienceElements.map(element=><button key={element.symbol} type="button" style={{gridColumn:element.column,gridRow:element.period}} aria-label={`${element.name}, ${element.symbol}, atomic number ${element.number}`} aria-pressed={symbol===element.symbol} onMouseEnter={()=>setSymbol(element.symbol)} onFocus={()=>setSymbol(element.symbol)} onClick={()=>setSymbol(element.symbol)}><small>{element.number}</small><strong>{element.symbol}</strong><span>{element.name}</span></button>)}</div><div className="element-detail" role="status" aria-live="polite"><strong>{selected.name} <span>{selected.symbol}</span></strong><p>Atomic number {selected.number}<br />Period {selected.period} · Group {selected.group}</p></div><small className="science-note">Selected elements only; columns retain their group numbers.</small><a href="https://periodic-table.rsc.org/" target="_blank" rel="noopener noreferrer">Explore the RSC periodic table ↗</a></aside>
+}
+

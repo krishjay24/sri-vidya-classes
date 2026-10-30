@@ -1,0 +1,25 @@
+{
+  "caseSensitive404": "passed",
+  "direct404": "passed",
+  "postRequests": "405; no backend enabled",
+  "keyboard": "passed",
+  "drawer": "passed",
+  "reducedMotion": "passed",
+  "progress": "1px",
+  "portrait": "natural proportions and visible caption",
+  "errors": [],
+  "localVitals": [
+    {
+      "width": 390,
+      "cls": 0,
+      "lcp": 456,
+      "note": "Unthrottled local Chromium lab observation; not field CWV or Lighthouse."
+    },
+    {
+      "width": 1440,
+      "cls": 0,
+      "lcp": 544,
+      "note": "Unthrottled local Chromium lab observation; not field CWV or Lighthouse."
+    }
+  ]
+}

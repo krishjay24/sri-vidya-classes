@@ -1,0 +1,45 @@
+{
+  "photos": 11,
+  "responsiveWebP": 44,
+  "gallery": "source and collection unchanged",
+  "routesWithPhotos": 16,
+  "report": [
+    {
+      "width": 360,
+      "controls": "fixed slots; WhatsApp above conditional Top",
+      "progress": "1px, accurate and reset",
+      "routeFocus": "no scroll jump"
+    },
+    {
+      "width": 390,
+      "controls": "fixed slots; WhatsApp above conditional Top",
+      "progress": "1px, accurate and reset",
+      "routeFocus": "no scroll jump"
+    },
+    {
+      "width": 768,
+      "controls": "fixed slots; WhatsApp above conditional Top",
+      "progress": "1px, accurate and reset",
+      "routeFocus": "no scroll jump"
+    },
+    {
+      "width": 1024,
+      "controls": "fixed slots; WhatsApp above conditional Top",
+      "progress": "1px, accurate and reset",
+      "routeFocus": "no scroll jump"
+    },
+    {
+      "width": 1440,
+      "controls": "fixed slots; WhatsApp above conditional Top",
+      "progress": "1px, accurate and reset",
+      "routeFocus": "no scroll jump"
+    },
+    {
+      "width": 1920,
+      "controls": "fixed slots; WhatsApp above conditional Top",
+      "progress": "1px, accurate and reset",
+      "routeFocus": "no scroll jump"
+    }
+  ],
+  "errors": []
+}

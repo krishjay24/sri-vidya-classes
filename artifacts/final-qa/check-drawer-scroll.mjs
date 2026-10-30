@@ -1,0 +1,11 @@
+﻿import {chromium} from '@playwright/test'
+const b=await chromium.launch({channel:'chrome'})
+const p=await b.newPage({viewport:{width:390,height:1000},reducedMotion:'reduce'})
+await p.goto('http://127.0.0.1:4173/')
+await p.evaluate(()=>scrollTo(0,200))
+await p.getByRole('button',{name:'Open navigation'}).click()
+await p.waitForTimeout(200)
+const before=await p.evaluate(()=>({scroll:scrollY,overflow:document.body.style.overflow,open:document.querySelector('dialog').open}))
+await p.mouse.move(10,400);await p.mouse.wheel(0,500);await p.waitForTimeout(250)
+console.log(JSON.stringify({version:b.version(),before,after:await p.evaluate(()=>({scroll:scrollY,overflow:document.body.style.overflow,open:document.querySelector('dialog').open}))}))
+await b.close()
