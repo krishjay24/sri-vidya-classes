@@ -1,19 +1,12 @@
 ﻿import sharp from 'sharp'
 import { mkdir,writeFile } from 'node:fs/promises'
 import path from 'node:path'
-const xml=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')
-function wrap(text,length=25){const lines=[];let line='';for(const word of text.split(/\s+/)){if((line+' '+word).trim().length>length&&line){lines.push(line);line=word}else line=(line+' '+word).trim()}if(line)lines.push(line);return lines.slice(0,4)}
 export async function generateSeoMedia(routes,directory){
  await mkdir(path.join(directory,'social'),{recursive:true})
- const crest=await sharp('src/assets/branding/sri-vidya-crest-original.png').resize(104,104,{fit:'contain'}).png().toBuffer()
- const portrait=await sharp('src/assets/faculty/t-balu-mahendra-original.png').resize({height:540}).png().toBuffer()
- for(const route of [...routes,{path:'/404',label:'Find your next step',title:'Page not found'}]){
-  const label=route.path==='/'?'A stronger foundation. A brighter tomorrow.':route.label
-  const lines=wrap(label)
-  const size=lines.length>3?42:48
-  const text=lines.map((line,index)=>`<text x="64" y="${265+index*60}" font-size="${size}" font-weight="700">${xml(line)}</text>`).join('')
-  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#102D52"/><path d="M0 614H1200" stroke="#BB1633" stroke-width="32"/><circle cx="1000" cy="320" r="260" fill="#F3C94E"/><g fill="white" font-family="Arial, sans-serif"><text x="190" y="100" font-size="34" font-weight="700">Sri Vidya Classes</text><text x="192" y="133" font-size="15" letter-spacing="3" fill="#F3C94E">KADAPA · LEARNING WITH PURPOSE</text>${text}<text x="64" y="546" font-size="18" fill="#F3C94E">IIT-JEE · NEET · FOUNDATION · CHEMISTRY</text><text x="64" y="580" font-size="17">T. Balu Mahendra sir</text></g></svg>`
-  const buffer=await sharp(Buffer.from(svg)).composite([{input:crest,left:64,top:48},{input:portrait,left:795,top:75}]).png({compressionLevel:9}).toBuffer()
+ // Preserve the official emblem; social cards contain no portrait or additional text.
+ const crest=await sharp('src/assets/branding/sri-vidya-crest-original.png').resize(550,550,{fit:'contain',background:{r:255,g:255,b:255,alpha:0}}).png().toBuffer()
+ const buffer=await sharp({create:{width:1200,height:630,channels:3,background:'#FFFFFF'}}).composite([{input:crest,left:325,top:40}]).png({compressionLevel:9}).toBuffer()
+ for(const route of [...routes,{path:'/404'}]){
   const name=route.path==='/'?'home':route.path.slice(1).replaceAll('/','-')
   await writeFile(path.join(directory,'social',name+'.png'),buffer)
  }
