@@ -1,6 +1,6 @@
 ﻿# SEO verification and production activation
 
-The site stays non-indexable until the exact final HTTPS domain is supplied and verified. The supplied value `srividyaclasses` has no extension, so it is not treated as a domain. Local/staging builds use the reserved `https://sri-vidya-classes.invalid` origin for clearly identifiable placeholders. These are not live canonical or social-image addresses.
+Production-mode builds now use `https://sri-vidya-classes.netlify.app` from `.env.production` for canonical, social-image and sitemap URLs. This fixes the previously published `.invalid` Open Graph image address. Search indexing remains disabled independently until final business/domain sign-off. Development without a configured origin still uses the reserved `.invalid` fallback. If the public domain changes, update `SEO_SITE_URL` and rebuild. Netlify environment variables override the checked-in defaults; remove any old `.invalid` override there.
 
 ## What the build produces
 
