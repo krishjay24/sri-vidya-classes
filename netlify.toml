@@ -1,0 +1,16 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  SEO_SITE_URL = "https://sri-vidya-classes.netlify.app"
+  SEO_ENV = "production"
+  SEO_DOMAIN_VERIFIED = "true"
+  SEO_ALLOW_INDEXING = "true"
+  # Owner approved current published business details and claims on 2026-10-31.
+  SEO_BUSINESS_APPROVED = "true"
+
+# Prerendering generates route rewrites, static robots/sitemap and a real 404.
+# Do not add a blanket SPA fallback; existing static files must remain accessible.
+# CONTEXT prevents indexing on deploy previews and branch deploys.

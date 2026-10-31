@@ -3,7 +3,8 @@ import assert from 'node:assert/strict'
 import {readFile} from 'node:fs/promises'
 const manifest=JSON.parse(await readFile('dist/route-manifest.json','utf8'))
 const origin='http://127.0.0.1:4173'
-for(const route of manifest.routes){const response=await fetch(origin+route.path);assert.equal(response.status,200);assert(response.headers.get('x-robots-tag')?.includes('noindex'));const html=await response.text();assert(html.includes('<h1'));assert(html.includes('application/ld+json'))}
+for(const route of manifest.routes){const response=await fetch(origin+route.path);assert.equal(response.status,200);assert.equal(response.headers.get('x-robots-tag')?.includes('noindex')??false,!manifest.policy.indexing||!route.indexable);const html=await response.text();assert(html.includes('<h1'));assert(html.includes('application/ld+json'))}
+for(const [pathname,type] of [['/robots.txt','text/plain'],['/sitemap.xml','application/xml']]){const response=await fetch(origin+pathname);assert.equal(response.status,200);assert(response.headers.get('content-type').startsWith(type));assert.equal(await response.text(),await readFile('dist'+pathname,'utf8'))}
 for(const pathname of ['/missing-page','/programs/not-real','/learning-hub/not-real']){const response=await fetch(origin+pathname);assert.equal(response.status,404);assert((await response.text()).includes('404 · PAGE NOT FOUND'))}
 assert.equal((await fetch(origin+'/about/',{redirect:'manual'})).status,301)
 const assetHtml=await(await fetch(origin+'/')).text()

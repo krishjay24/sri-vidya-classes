@@ -2,7 +2,7 @@
 import { programs } from './academics'
 import { contact } from './contact'
 import { achievements, galleryPhotos, publishableAchievements, publishableGallery } from './showcase'
-export interface SeoPolicy {siteUrl:string;production:boolean;domainVerified:boolean;indexing:boolean}
+export interface SeoPolicy {siteUrl:string;production:boolean;domainVerified:boolean;businessApproved:boolean;indexing:boolean}
 export const seoPolicy:SeoPolicy=__SEO_CONFIG__
 export interface PublicRoute {path:string;title:string;description:string;label:string;indexable:boolean}
 const pages:PublicRoute[]=[

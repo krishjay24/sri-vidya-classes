@@ -11,11 +11,12 @@
  const production=env.SEO_ENV==='production'&&(!env.CONTEXT||env.CONTEXT==='production')
  const domainVerified=env.SEO_DOMAIN_VERIFIED==='true'&&!!candidate&&!new URL(siteUrl).hostname.endsWith('.invalid')
  if(production&&env.SEO_ALLOW_INDEXING==='true'&&!domainVerified)throw Error('Production indexing requires a full SEO_SITE_URL and SEO_DOMAIN_VERIFIED=true. No domain is assumed.')
- return {siteUrl,production,domainVerified,indexing:production&&domainVerified&&env.SEO_ALLOW_INDEXING==='true'}
+ const businessApproved=env.SEO_BUSINESS_APPROVED==='true'
+ return {siteUrl,production,domainVerified,businessApproved,indexing:production&&domainVerified&&businessApproved&&env.SEO_ALLOW_INDEXING==='true'}
 }
 export function createSitemap(routes,policy){
- // Keep the XML route inventory valid even on staging; robots never advertises it there.
- const indexable=routes.filter(route=>route.indexable)
+ // A blocked build has no indexable URLs to submit.
+ const indexable=policy.indexing?routes.filter(route=>route.indexable):[]
  const escape=value=>value.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${indexable.map(route=>`\n  <url><loc>${escape(new URL(route.path,policy.siteUrl+'/').href)}</loc></url>`).join('')}\n</urlset>\n`
 }

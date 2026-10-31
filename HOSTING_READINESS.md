@@ -1,3 +1,5 @@
+> SEO status superseded on 31 October 2026: current business claims approved and production indexing configured locally. See [SEO_SETUP_REPORT.md](SEO_SETUP_REPORT.md). No push or deployment performed.
+
 # Hosting readiness — 30 October 2026
 
 **Verdict: ready for a non-indexed hosting preview. Final public launch needs the verified full domain and business-content sign-off. Nothing deployed or pushed.**

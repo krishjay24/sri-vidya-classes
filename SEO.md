@@ -1,4 +1,6 @@
-﻿# SEO verification and production activation
+> Current status (31 October 2026): owner approval received; production indexing is enabled locally for the Netlify origin with 19 sitemap URLs. SEO_BUSINESS_APPROVED=true is now required. Preview/branch builds remain blocked with an empty sitemap. [SEO_SETUP_REPORT.md](SEO_SETUP_REPORT.md) supersedes earlier staging/approval descriptions below.
+
+# SEO verification and production activation
 
 Production-mode builds now use `https://sri-vidya-classes.netlify.app` from `.env.production` for canonical, social-image and sitemap URLs. This fixes the previously published `.invalid` Open Graph image address. Search indexing remains disabled independently until final business/domain sign-off. Development without a configured origin still uses the reserved `.invalid` fallback. If the public domain changes, update `SEO_SITE_URL` and rebuild. Netlify environment variables override the checked-in defaults; remove any old `.invalid` override there.
 
@@ -63,6 +65,3 @@ Revocation uses `granted: false`. Consent is memory-only and resets on a fresh p
 - Local schema validation is not a guarantee of a search rich result. After the real origin is configured and publication is separately authorized, check actual response headers/canonical redirects, Google's Rich Results Test/Search Console and social platform fetch tools. External crawler eligibility, social caches and field Core Web Vitals cannot be verified from an unpublished `.invalid` build.
 
 No deployment or push was performed.
-
-
-
