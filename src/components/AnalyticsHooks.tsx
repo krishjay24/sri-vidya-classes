@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import AnalyticsConsentModal from './AnalyticsConsentModal'
+import AnalyticsConsent from './AnalyticsConsent'
 import { programs } from '../config/academics'
 import { analyticsAvailable, consentKey, privacySignal, savedConsent, setAnalyticsConsent, trackEvent, trackPageView } from '../lib/analytics'
 export default function AnalyticsHooks() {
@@ -10,7 +10,7 @@ export default function AnalyticsHooks() {
   setAnalyticsConsent(savedConsent() === true)
   const frame = requestAnimationFrame(() => setOpen(analyticsAvailable() && savedConsent() === null && !privacySignal()))
   const settings = () => setOpen(true)
-  const sync = (event: StorageEvent) => { if (event.key === consentKey || event.key === null) setAnalyticsConsent(savedConsent() === true) }
+  const sync = (event: StorageEvent) => { if (event.key === consentKey || event.key === null) { setAnalyticsConsent(savedConsent() === true); setOpen(analyticsAvailable() && savedConsent() === null && !privacySignal()) } }
   const consent = (event: Event) => { setAnalyticsConsent((event as CustomEvent<{granted?: boolean}>).detail?.granted === true,true); setOpen(false) }
   const click = (event: MouseEvent) => {
    const link = (event.target as Element)?.closest?.('a[href]')
@@ -34,5 +34,5 @@ export default function AnalyticsHooks() {
  },[])
  useEffect(() => { trackPageView(pathname) },[pathname])
  const choose = (granted: boolean) => { setAnalyticsConsent(granted,true); setOpen(false) }
- return open ? <AnalyticsConsentModal onChoose={choose} /> : null
+ return open ? <AnalyticsConsent onChoose={choose} /> : null
 }
