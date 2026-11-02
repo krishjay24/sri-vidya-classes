@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import AnalyticsConsentModal from './AnalyticsConsentModal'
 import { programs } from '../config/academics'
 import { analyticsAvailable, consentKey, privacySignal, savedConsent, setAnalyticsConsent, trackEvent, trackPageView } from '../lib/analytics'
 export default function AnalyticsHooks() {
@@ -33,5 +34,5 @@ export default function AnalyticsHooks() {
  },[])
  useEffect(() => { trackPageView(pathname) },[pathname])
  const choose = (granted: boolean) => { setAnalyticsConsent(granted,true); setOpen(false) }
- return open ? <section className="analytics-consent" aria-label="Analytics preferences"><p>Allow optional Google Analytics cookies to help us understand page visits and enquiry actions? We exclude enquiry details and URL query strings. <Link to="/privacy">Privacy information</Link>. Change your choice anytime using Analytics preferences in the footer.</p>{privacySignal() && <p>Your browser privacy preference blocks analytics.</p>}<div><button type="button" onClick={() => choose(true)} disabled={privacySignal()}>Allow analytics</button><button type="button" onClick={() => choose(false)}>Reject / withdraw analytics</button></div></section> : null
+ return open ? <AnalyticsConsentModal onChoose={choose} /> : null
 }
